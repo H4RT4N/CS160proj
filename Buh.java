@@ -35,7 +35,7 @@ public class Buh{
         Stack<String> buffer = new Stack<String>(); // buffer to hold strings ready to be tokenized
         String temp = ""; // temp hold in strings aren't ready to be tokenized
        
-        for(int i = 0; i < line.length()-1; i++) {
+        for(int i = 0; i < line.length(); i++) {
             int asciiBit = (int) line.charAt(i); // turn current letter into ascii value
            
             // if a-z or A-Z
@@ -71,9 +71,13 @@ public class Buh{
                 }
                 else
                 {
+                	ArrayList<String> revBuf = new ArrayList<String>();
                     while(!buffer.isEmpty())
-                        tokens.add(buffer.pop());
-                    tokens.add(line.substring(i, i + 1));
+                        revBuf.add(buffer.pop());
+                    for(int j = revBuf.size()-1; j >= 0 ; j--)
+                    	tokens.add(revBuf.get(j));
+                    if(asciiBit != 32)
+                    	tokens.add(line.substring(i, i + 1));
                 }
             }
        
@@ -96,7 +100,7 @@ public class Buh{
         //br.close();
         //fr.close();
        
-        test.tokenizeLine("h.t@t.c !.!4");
+        test.tokenizeLine("h.t@t.c !.!4 hi.test");
        
         ArrayList<String> tokens = test.getTokens();
         for(int i = 0; i < tokens.size(); i++){
